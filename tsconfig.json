@@ -1,26 +1,22 @@
 {
   "compilerOptions": {
     /* Basic Options */
+    "lib": ["DOM"],
     "target": "esnext",
-    "module": "esnext",
-    "jsx": "preserve",
-      
+    "module": "commonjs",
+    "jsx": "react",
+    "skipLibCheck": true,
+
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": false,
-      
+
     /* Module Resolution Options */
     "moduleResolution": "node",
     "baseUrl": "./",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "exclude": [
-    "**/*.test.*",
-    "**/*.spec.*",
-    "node_modules",
-    "dist",
-    "public"
-  ]
+  "exclude": ["**/*.test.*", "**/*.spec.*", "node_modules", "dist", "public"]
 }
