@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+      
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": false,
+      
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "esModuleInterop": true,
+  },
+  "exclude": [
+    "**/*.test.*",
+    "**/*.spec.*",
+    "node_modules",
+    "dist",
+    "public"
+  ]
+}
