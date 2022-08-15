@@ -1,5 +1,7 @@
 # React Pure SSR
 
+쌩 리액트 서버사이드 렌더링 해봅니다.
+
 ## Stack
 
 - React 18
@@ -7,7 +9,7 @@
 - webpack-dev-middleware
 - webpack-hot-middleware
 - ts-node
-- swc
+- SWC
 
 ## Todo
 
@@ -15,4 +17,6 @@
 - [x] webpack-dev-middleware, webpack-hot-middleware
 - [ ] Code Splitting
 - [ ] Streaming SSR
+- [ ] Multi Server Streaming SSR
+- [ ] Server Component
 - [ ] Critical CSS
