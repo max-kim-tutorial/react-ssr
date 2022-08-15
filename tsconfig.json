@@ -4,13 +4,12 @@
     "lib": ["DOM"],
     "target": "esnext",
     "module": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "skipLibCheck": true,
 
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
     "noImplicitThis": false,
     "allowSyntheticDefaultImports": true,
 
@@ -20,5 +19,11 @@
     "esModuleInterop": true
   },
   "exclude": ["**/*.test.*", "**/*.spec.*", "node_modules", "dist", "public"],
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "jsx": "react-jsx"
+    }
+  }
 }

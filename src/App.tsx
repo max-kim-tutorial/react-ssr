@@ -1,10 +1,17 @@
-import { Routes, Route, BrowserRouter, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
 import Counter from './pages/Counter';
 import Register from './pages/Register';
+import RootRouter from './RootRouter';
 
 function App() {
+  if (typeof window !== 'undefined') {
+    console.log('클라');
+  } else {
+    console.log('서버');
+  }
+
   return (
     <div>
       <Helmet>
@@ -13,10 +20,10 @@ function App() {
       <h1>
         <a href="/">React App</a>
       </h1>
-      <BrowserRouter>
+      <RootRouter>
         <div>
           <span>
-            <Link to="/counter">카운터</Link>
+            <Link to="/counter">카운터!</Link>
           </span>
           &nbsp; &nbsp;
           <span>
@@ -28,7 +35,7 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-      </BrowserRouter>
+      </RootRouter>
     </div>
   );
 }

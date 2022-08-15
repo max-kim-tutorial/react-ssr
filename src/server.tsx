@@ -11,10 +11,13 @@ const app = express();
 
 //! 개발모드일때 웹팩 데브 미들웨어를 같이 실행시킨다
 if (process.env.NODE_ENV !== 'production') {
+  console.log('개발모드');
+
   const webpack = require('webpack');
   const webpackConfig = require('../webpack.client.js');
 
-  // express 서버에서 웹팩 파일 수정될때 서빙을 해줌
+  // dev-server 확장판
+  // 웹팩으로 빌드한 정적 파일을 처리해줌
   const webpackDevMiddleware = require('webpack-dev-middleware');
 
   // 데브미들웨어에서 가져온 파일 정보들을 토대로 파일들을 불러와서 브라우저에 갱신
@@ -37,12 +40,10 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.static(path.resolve(__dirname)));
 
 app.get('*', (req, res) => {
-  const context = {};
-
   // 앱을 통째로
-  // 중간에 브라우저 라우터는?
+  // 중간에 브라우저 라우터는? -> 앱단에서 분기해주자
   const html = renderToString(
-    <StaticRouter location={req.url} context={context}>
+    <StaticRouter location={req.url}>
       <App />
     </StaticRouter>,
   );
@@ -54,6 +55,7 @@ app.get('*', (req, res) => {
     <!DOCTYPE html>
       <html lang="en">
         <head>
+          <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, user-scalable=no">
           <meta name="google" content="notranslate">
           ${helmet.title.toString()}

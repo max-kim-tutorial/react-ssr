@@ -1,18 +1,18 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, MouseEventHandler } from 'react';
 import Helmet from 'react-helmet';
 
 function Register() {
-  const [names, setNames] = useState([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [names, setNames] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const submit = (e) => {
-    if (inputRef.current) {
-      setNames((s) => s.concat([inputRef.current.value]));
+  const submit = () => {
+    if (inputRef.current !== null) {
+      setNames((s) => s.concat([inputRef.current!.value]));
     }
   };
 
   useEffect(() => {
-    if (inputRef.current) {
+    if (inputRef.current !== null) {
       inputRef.current.value = '';
     }
   }, [names]);
@@ -26,7 +26,7 @@ function Register() {
       <div>
         <input ref={inputRef} />
         <button type="button" onClick={submit}>
-          추가
+          추가!
         </button>
       </div>
       <ol>

@@ -3,8 +3,10 @@
   "packageManager": "yarn@3.2.2",
   "scripts": {
     "dev:csr": "webpack-dev-server --env=env=dev --profile",
-    "dev:ssr": "nodemon --exec ts-node src/server.tsx",
-    "build:ssr": "NODE_ENV=production webpack --env=env=server"
+    "build:csr": "NODE_ENV=production webpack --env=env=dev --profile",
+    "dev:ssr": "rm -rf dist/ && NODE_ENV=development webpack --env=env=client && NODE_ENV=development node -r ts-node/register/transpile-only ./src/server.tsx",
+    "build:ssr": "NODE_ENV=production webpack --env=env=server && NODE_ENV=production wepback --env=env=client",
+    "type-check": "tsc"
   },
   "dependencies": {
     "express": "^4.18.1",
