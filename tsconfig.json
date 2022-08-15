@@ -3,7 +3,7 @@
     /* Basic Options */
     "lib": ["DOM"],
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "jsx": "react",
     "skipLibCheck": true,
 
@@ -12,11 +12,13 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": false,
+    "allowSyntheticDefaultImports": true,
 
     /* Module Resolution Options */
     "moduleResolution": "node",
     "baseUrl": "./",
     "esModuleInterop": true
   },
-  "exclude": ["**/*.test.*", "**/*.spec.*", "node_modules", "dist", "public"]
+  "exclude": ["**/*.test.*", "**/*.spec.*", "node_modules", "dist", "public"],
+  "include": ["./src/**/*.ts"]
 }
