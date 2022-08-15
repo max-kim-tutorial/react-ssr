@@ -19,4 +19,5 @@
 - [ ] Streaming SSR
 - [ ] Multi Server Streaming SSR
 - [ ] Server Component
+- [ ] Client Side Fast Refresh
 - [ ] Critical CSS
