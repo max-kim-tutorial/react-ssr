@@ -1,6 +1,6 @@
 {
   "name": "@ssr-react/ssr",
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.2",
   "scripts": {
     "dev:csr": "webpack-dev-server --env=env=dev --profile",
     "dev:ssr": "nodemon --exec ts-node src/server.tsx",
