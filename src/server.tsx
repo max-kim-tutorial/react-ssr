@@ -1,9 +1,10 @@
 import path from 'path';
 import express from 'express';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToString, renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import Helmet from 'react-helmet';
+import { Writable } from 'node:stream';
 
 import App from './App';
 
@@ -39,33 +40,85 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.resolve(__dirname)));
 
+// The front part of the HTML. it'll be streamed before the ReactDOMServer render result.
+const frontHTML = (title?: string, headAppend?: string) => `
+<!DOCTYPE HTML>
+  <html>
+    <head>
+      ${headAppend ?? ''}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no">
+      <meta name="google" content="notranslate">
+    </head>
+    <body>
+      <div id="root">`;
+
+const backHTML = `</div>
+    </body>
+  </html>`;
+
 app.get('*', (req, res) => {
   // 앱을 통째로
   // 중간에 브라우저 라우터는? -> 앱단에서 분기해주자
-  const html = renderToString(
+  const stream = new Writable({
+    write(chunk, _encoding, cb) {
+      res.write(chunk, cb);
+    },
+    final() {
+      res.end(backHTML);
+    },
+  });
+
+  let wasError = false;
+  // renderToString 이후에 가져와야 됨
+
+  const { pipe, abort } = renderToPipeableStream(
     <StaticRouter location={req.url}>
       <App />
     </StaticRouter>,
+    {
+      bootstrapScripts: ['main.js'],
+      onShellReady() {
+        res.statusCode = wasError ? 500 : 200;
+        res.setHeader('Content-type', 'text/html');
+        res.write(frontHTML());
+        pipe(stream);
+      },
+      onAllReady() {
+        console.log('all ready');
+      },
+      onError(x) {
+        wasError = true;
+        console.error(x);
+      },
+    },
   );
 
-  const helmet = Helmet.renderStatic(); // renderToString 이후에 가져와야 됨
+  // renderToString
+  // const html = renderToString(
+  //   <StaticRouter location={req.url}>
+  //     <App />
+  //   </StaticRouter>,
+  // );
 
-  res.set('content-type', 'text/html');
-  res.send(`
-    <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, user-scalable=no">
-          <meta name="google" content="notranslate">
-          ${helmet.title.toString()}
-        </head>
-        <body>
-          <div id="root">${html}</div>
-          <script type="text/javascript" src="main.js"></script>
-        </body>
-      </html>
-  `);
+  // const helmet = Helmet.renderStatic(); // renderToString 이후에 가져와야 됨
+
+  // res.set('content-type', 'text/html');
+  // res.send(`
+  //   <!DOCTYPE html>
+  //     <html lang="en">
+  //       <head>
+  //         <meta charset="utf-8">
+  //         <meta name="viewport" content="width=device-width, user-scalable=no">
+  //         <meta name="google" content="notranslate">
+  //         ${helmet.title.toString()}
+  //       </head>
+  //       <body>
+  //         <div id="root">${html}</div>
+  //         <script type="text/javascript" src="main.js"></script>
+  //       </body>
+  //     </html>
+  // `);
 });
 
 app.listen(3003, () => console.log('Server started http://localhost:3003'));

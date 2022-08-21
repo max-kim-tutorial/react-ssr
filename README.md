@@ -16,8 +16,18 @@
 - [x] Executable prod and dev
 - [x] webpack-dev-middleware, webpack-hot-middleware
 - [x] Code Splitting -> React 18에서는 loadable component가 필요없는거 같음 Supsense가 SSR을 지원함(개꿀)
-- [ ] Streaming SSR
-- [ ] Multi Server Streaming SSR
+- [x] Streaming SSR -> 데이터 패칭시에도 suspense가 잘 동작하는지 검증 필요
+- [ ] Multi Server Streaming SSR -> 서버단에서 결국 모든 "일부 UI"의 Streaming HTML을 요청해 원기옥을 모아 렌더링하는 방식이 될듯
 - [ ] Server Component
 - [ ] Client Side Fast Refresh
 - [ ] Critical CSS
+
+## `renderToPipeableStream`
+
+대충 느끼는 것: Stream이라고는 하지만 결국 서버에서 한번에 나오긴 해야한다.  
+node stream에 대한 지식도 필요하군(잘모름)
+
+- 초기에 HTML 렌더링하고, selective hydration이 필요한 곳은 비워둔다
+- 밑에 스트리밍되는 HTML과 hydration될 자바스크립트가 그대로 같이 렌더링된다
+- 브라우저에서 hydration 되면서 컨텐츠가 제자리를 찾아간다.
+- 서버에서 모든 SSR에 필요한 것들이 처리되는 오버헤드를 줄이고, 브라우저에서 데이터 패칭(?맞나), 하이드레이션 이후의 PopIn이 일어난다.

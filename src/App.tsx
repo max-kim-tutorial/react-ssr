@@ -29,11 +29,15 @@ function App() {
       <RootRouter>
         <div>
           <span>
-            <Link to="/counter">카운터!</Link>
+            <Link to="/counter" reloadDocument={false}>
+              카운터
+            </Link>
           </span>
           &nbsp; &nbsp;
           <span>
-            <Link to="/register">등록</Link>
+            <Link to="/register" reloadDocument={false}>
+              등록
+            </Link>
           </span>
         </div>
         <Suspense fallback={<div>로딩</div>}>
