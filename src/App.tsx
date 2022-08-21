@@ -1,9 +1,15 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
-import Counter from './pages/Counter';
-import Register from './pages/Register';
 import RootRouter from './RootRouter';
+
+const Counter = lazy(
+  () => import(/* webpackChunkName: "Counter" */ './pages/Counter'),
+);
+const Register = lazy(
+  () => import(/* webpackChunkName: "Register" */ './pages/Register'),
+);
 
 function App() {
   if (typeof window !== 'undefined') {
@@ -30,11 +36,13 @@ function App() {
             <Link to="/register">등록</Link>
           </span>
         </div>
-        <Routes>
-          <Route path="/" element={<div>링크를 클릭해주세요</div>} />
-          <Route path="/counter" element={<Counter />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        <Suspense fallback={<div>로딩</div>}>
+          <Routes>
+            <Route path="/" element={<div>링크를 클릭해주세요</div>} />
+            <Route path="/counter" element={<Counter />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Suspense>
       </RootRouter>
     </div>
   );

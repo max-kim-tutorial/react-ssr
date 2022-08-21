@@ -15,7 +15,7 @@
 
 - [x] Executable prod and dev
 - [x] webpack-dev-middleware, webpack-hot-middleware
-- [ ] Code Splitting
+- [x] Code Splitting -> React 18에서는 loadable component가 필요없는거 같음 Supsense가 SSR을 지원함(개꿀)
 - [ ] Streaming SSR
 - [ ] Multi Server Streaming SSR
 - [ ] Server Component
