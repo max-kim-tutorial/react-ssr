@@ -1,11 +1,6 @@
 import path from 'path';
 import express from 'express';
-import React from 'react';
-import fs from 'fs';
 import axios from 'axios';
-import Stream from 'stream';
-
-import App from './App';
 
 const app = express();
 
