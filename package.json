@@ -6,9 +6,11 @@
     "build:csr": "NODE_ENV=production webpack --env=env=dev --profile",
     "dev:ssr": "rm -rf dist/ && NODE_ENV=development webpack --env=env=client && NODE_ENV=development node -r ts-node/register/transpile-only ./src/server.tsx",
     "build:ssr": "NODE_ENV=production webpack --env=env=server && NODE_ENV=production wepback --env=env=client",
+    "stream-server": "NODE_ENV=development node -r ts-node/register/transpile-only ./src/streamServer.tsx",
     "type-check": "tsc"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "express": "^4.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
