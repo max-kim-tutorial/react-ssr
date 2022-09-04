@@ -10,13 +10,14 @@
 - webpack-hot-middleware
 - ts-node
 - SWC
+- Node Writable Stream
 
 ## Todo
 
 - [x] Executable prod and dev
 - [x] webpack-dev-middleware, webpack-hot-middleware
 - [x] Code Splitting -> React 18에서는 loadable component가 필요없는거 같음 Supsense가 SSR을 지원함(개꿀)
-- [x] Streaming SSR -> 데이터 패칭시에도 suspense가 잘 동작하는지 검증 필요
+- [x] renderToPipeableStream -> 데이터 패칭시에도 suspense가 잘 동작하는지 검증 필요
 - [x] Node Stream Streaming SSR Server -> express + stream으로 직접 컨셉 구현해보기
 - [ ] Server Component
 - [ ] Client Side Fast Refresh
