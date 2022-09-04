@@ -5,6 +5,7 @@ import { renderToString, renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import Helmet from 'react-helmet';
 import { Writable } from 'node:stream';
+import axios from 'axios';
 
 import App from './App';
 

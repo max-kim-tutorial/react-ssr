@@ -20,7 +20,9 @@ app.get('/ssr/stream', async (req, res) => {
 
   const {
     data: { name },
-  } = await axios.get('https://pokeapi.co/api/v2/berry/25/');
+  } = await axios.get(
+    'https://deelay.me/10000/https://pokeapi.co/api/v2/berry/25/',
+  );
   res.write(`2-${name}\n\n`);
 
   res.end();
@@ -33,7 +35,9 @@ app.get('/ssr/response', async (req, res) => {
 
   const {
     data: { name },
-  } = await axios.get('https://pokeapi.co/api/v2/berry/25/');
+  } = await axios.get(
+    'https://deelay.me/10000/https://pokeapi.co/api/v2/berry/25/',
+  );
 
   res.end(`1-${fileData}\n\n2-${name}\n\n`);
 });
